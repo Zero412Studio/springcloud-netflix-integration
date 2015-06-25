@@ -1,0 +1,55 @@
+buildscript {
+    ext {
+        springBootVersion = '1.2.4.RELEASE'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:0.5.1.RELEASE")
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.8
+
+dependencies {
+    compile("org.springframework.hateoas:spring-hateoas")
+    compile("org.springframework.cloud:spring-cloud-starter-eureka-server:1.0.1.RELEASE")
+    compile("org.springframework.cloud:spring-cloud-starter-config:1.0.1.RELEASE")
+    compile("javax.servlet:javax.servlet-api:3.1.0")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("junit:junit:4.6")
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'xml-apis:xml-apis:1.4.01'
+    }
+}
+
+springBoot {
+    requiresUnpack = ['com.netflix.eureka:eureka-core','com.netflix.eureka:eureka-client']
+}
+
+
+// the exploded JAR file can (and in this case does) have one or more "main" classes and the
+// bootRepackage class needs to know which class it should used for the JAR we are creating.
+bootRepackage {
+    mainClass = "com.zero412studio.spring.eureka.EurekaApplication"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
+}
