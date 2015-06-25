@@ -1,0 +1,72 @@
+#=======================
+# System properties
+#=======================
+
+# Tomcat SSL configuration
+server:
+  ssl:
+    enabled: true
+    key-store: file:src/main/resources/keystore.jks
+    key-store-password: test123
+    key-alias: tomcat
+    protocol: TLS
+
+  port: 8443
+logging:
+  file: build/logs/zuul.log
+
+spring:
+  application:
+    name: zuul
+
+###Eureka Client configuration for Eureka Client
+
+#Properties based configuration for eureka client. The properties specified here is mostly what the users
+#need to change. All of these can be specified as a java system property with -D option (eg)-Deureka.region=us-east-1
+#For additional tuning options refer <url to go here>
+
+
+#Region where eureka is deployed -For AWS specify one of the AWS regions, for other datacenters specify a arbitrary string
+#indicating the region.This is normally specified as a -D option (eg) -Deureka.region=us-east-1
+eureka:
+  region: default
+
+#Name of the application to be identified by other services
+
+  name: ${spring.application.name}
+
+#Virtual host name by which the clients identifies this service
+#eureka.vipAddress=eureka.mydomain.net
+
+#The port where the service will be running and servicing requests
+  port: 8761
+
+#For eureka clients running in eureka server, it needs to connect to servers in other zones
+#eureka.preferSameZone=true
+
+#Change this if you want to use a DNS based lookup for determining other eureka servers. For example
+#of specifying the DNS entries, check the eureka-client-testservice.properties, eureka-client-prod.properties
+  shouldUseDns: false
+
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+  instance:
+    secureVirtualHostName: ${spring.application.name}
+    secure-port: ${server.port}
+    secure-port-enabled: true
+    metadata-map:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+
+ribbon:
+  IsSecure: true
+  CustomSSLSocketFactoryClassName: com.netflix.http4.ssl.AcceptAllSocketFactory
+
+zuul:
+  routes:
+    configservice:
+      path: /test/**
+      strip-prefix: false
+      serviceId: testservice
+
