@@ -64,3 +64,5 @@ ribbon:
   CustomSSLSocketFactoryClassName: com.netflix.http4.ssl.AcceptAllSocketFactory
 
 zuul:
+    strip-prefix: true
+    prefix: /api
