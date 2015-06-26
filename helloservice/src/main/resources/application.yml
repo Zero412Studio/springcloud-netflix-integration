@@ -11,13 +11,13 @@ server:
     key-alias: tomcat
     protocol: TLS
 
-  port: 8443
+  port: 8445
 logging:
-  file: build/logs/zuul.log
+  file: build/logs/helloservice.log
 
 spring:
   application:
-    name: zuul
+    name: helloservice
 
 ###Eureka Client configuration for Eureka Client
 
@@ -62,5 +62,4 @@ eureka:
 ribbon:
   IsSecure: true
   CustomSSLSocketFactoryClassName: com.netflix.http4.ssl.AcceptAllSocketFactory
-
-zuul:
+  IsHostnameValidationRequired: false

@@ -62,4 +62,5 @@ eureka:
 ribbon:
   IsSecure: true
   CustomSSLSocketFactoryClassName: com.netflix.http4.ssl.AcceptAllSocketFactory
+  IsHostnameValidationRequired: false
 

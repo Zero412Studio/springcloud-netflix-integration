@@ -1,4 +1,4 @@
-package com.zero412studio.spring.testservice;
+package com.zero412studio.spring.helloservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,15 +8,15 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
- * EurekaApplication
+ * HelloApplication
  */
 @SpringBootApplication
 @EnableWebMvc
 @EnableDiscoveryClient
 @EnableFeignClients
 @EnableHystrix
-public class TestApplication {
-    public static void main(final String[] args) throws Exception {
-        SpringApplication.run(TestApplication.class, args);
-    }
+public class HelloApplication {
+	public static void main(final String[] args) {
+		SpringApplication.run(HelloApplication.class, args);
+	}
 }
