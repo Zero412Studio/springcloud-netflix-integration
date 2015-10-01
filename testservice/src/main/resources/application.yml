@@ -56,7 +56,9 @@ eureka:
     secureVirtualHostName: ${spring.application.name}
     secure-port: ${server.port}
     secure-port-enabled: true
-    metadata-map:
+    #dataCenterInfo:
+          #name: Amazon
+    metadataMap:
       instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
 
 ribbon:
